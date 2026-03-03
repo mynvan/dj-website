@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impressum – DJ Philmusic</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f; --surface: #12121a; --card: #1a1a26; --border: #2a2a40;
+      --accent: #7c3aed; --accent2: #a855f7; --glow: rgba(124,58,237,0.35);
+      --text: #e2e2f0; --muted: #7a7a9a; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 0.15em; color: var(--white); text-decoration: none; }
+    .logo span { color: var(--accent2); }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    nav a:hover { color: var(--accent2); }
+    .theme-toggle { display: flex; align-items: center; gap: 0.45rem; background: none; border: none; cursor: pointer; padding: 0; }
+    .toggle-icon { font-size: 0.9rem; }
+    .toggle-track { width: 42px; height: 23px; background: var(--border); border-radius: 999px; position: relative; transition: background 0.3s; flex-shrink: 0; }
+    .toggle-thumb { position: absolute; top: 3px; left: 3px; width: 17px; height: 17px; background: #fff; border-radius: 50%; transition: transform 0.3s cubic-bezier(.4,0,.2,1); box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+    html.light .toggle-track { background: var(--accent); }
+    html.light .toggle-thumb { transform: translateX(19px); }
+    html.light { --bg: #f0f0f8; --surface: #e4e4f0; --card: #ffffff; --border: #c4c4dc; --glow: rgba(124,58,237,0.12); --text: #1a1a2e; --muted: #5a5a80; }
+    html.light nav { background: rgba(240,240,248,0.9); }
+    html.light h1, html.light h2, html.light h3 { color: var(--text); }
+    html.light .logo { color: var(--text); }
+
+    .page-wrap { max-width: 760px; margin: 0 auto; padding: 8rem 2rem 5rem; }
+
+    .breadcrumb { font-size: 0.8rem; color: var(--muted); margin-bottom: 2rem; }
+    .breadcrumb a { color: var(--accent2); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; color: var(--white); margin-bottom: 0.5rem; }
+    .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; margin-bottom: 2.5rem; }
+
+    .legal-block { margin-bottom: 2.5rem; }
+    .legal-block h2 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+    .legal-block h3 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin: 1rem 0 0.4rem; }
+    .legal-block p { color: var(--muted); font-size: 0.93rem; line-height: 1.75; margin-bottom: 0.6rem; }
+    .legal-block a { color: var(--accent2); text-decoration: none; }
+    .legal-block a:hover { text-decoration: underline; }
+
+    footer { text-align: center; padding: 2.5rem 1rem; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); }
+    footer strong { color: var(--accent2); }
+    .footer-links { margin-top: 0.6rem; display: flex; justify-content: center; gap: 1.5rem; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent2); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">DJ<span>PHILMUSIC</span></a>
+    <div class="nav-right">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="ueber-mich.html">Über mich</a></li>
+        <li><a href="galerie.html">Galerie</a></li>
+        <li><a href="index.html#bewertungen">Bewertungen</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Theme wechseln">
+        <span class="toggle-icon">🌙</span>
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-icon">☀️</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+    <div class="breadcrumb"><a href="index.html">Start</a> &rsaquo; Impressum</div>
+
+    <h1>Impressum</h1>
+    <div class="divider"></div>
+
+    <div class="legal-block">
+      <h2>Angaben gemäß § 5 TMG</h2>
+      <p>
+        Philipp Mustermann<br>
+        DJ Philmusic<br>
+        Musterstraße 12<br>
+        50667 Köln
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>Kontakt</h2>
+      <p>
+        Telefon: +49 (0) 221 123 456 78<br>
+        E-Mail: <a href="mailto:info@djphilmusic.de">info@djphilmusic.de</a>
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>Berufsbezeichnung und berufsrechtliche Regelungen</h2>
+      <p>
+        Berufsbezeichnung: Disc Jockey / Veranstaltungsdienstleister<br>
+        Zuständige Kammer: Industrie- und Handelskammer Köln<br>
+        Verliehen in: Deutschland
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>Umsatzsteuer-ID</h2>
+      <p>
+        Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br>
+        DE 123 456 789
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>EU-Streitschlichtung</h2>
+      <p>
+        Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+        <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr/</a>
+      </p>
+      <p>
+        Unsere E-Mail-Adresse finden Sie oben im Impressum. Wir sind nicht bereit oder verpflichtet,
+        an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>Haftung für Inhalte</h2>
+      <p>
+        Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den
+        allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht
+        verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen
+        zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+      </p>
+      <p>
+        Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen
+        Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt
+        der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden
+        Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>Haftung für Links</h2>
+      <p>
+        Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben.
+        Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der
+        verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>Urheberrecht</h2>
+      <p>
+        Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen
+        Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der
+        Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 <strong>DJ Philmusic</strong> &mdash; Alle Rechte vorbehalten.
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+    </div>
+  </footer>
+
+  <script>
+    const htmlEl = document.documentElement;
+    const toggleBtn = document.getElementById('themeToggle');
+    if (localStorage.getItem('theme') === 'light') htmlEl.classList.add('light');
+    toggleBtn.addEventListener('click', () => {
+      htmlEl.classList.toggle('light');
+      localStorage.setItem('theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
+    });
+  </script>
+</body>
+</html>

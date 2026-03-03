@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datenschutzerklärung – DJ Philmusic</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f; --surface: #12121a; --card: #1a1a26; --border: #2a2a40;
+      --accent: #7c3aed; --accent2: #a855f7; --glow: rgba(124,58,237,0.35);
+      --text: #e2e2f0; --muted: #7a7a9a; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 0.15em; color: var(--white); text-decoration: none; }
+    .logo span { color: var(--accent2); }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    nav a:hover { color: var(--accent2); }
+    .theme-toggle { display: flex; align-items: center; gap: 0.45rem; background: none; border: none; cursor: pointer; padding: 0; }
+    .toggle-icon { font-size: 0.9rem; }
+    .toggle-track { width: 42px; height: 23px; background: var(--border); border-radius: 999px; position: relative; transition: background 0.3s; flex-shrink: 0; }
+    .toggle-thumb { position: absolute; top: 3px; left: 3px; width: 17px; height: 17px; background: #fff; border-radius: 50%; transition: transform 0.3s cubic-bezier(.4,0,.2,1); box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+    html.light .toggle-track { background: var(--accent); }
+    html.light .toggle-thumb { transform: translateX(19px); }
+    html.light { --bg: #f0f0f8; --surface: #e4e4f0; --card: #ffffff; --border: #c4c4dc; --glow: rgba(124,58,237,0.12); --text: #1a1a2e; --muted: #5a5a80; }
+    html.light nav { background: rgba(240,240,248,0.9); }
+    html.light h1, html.light h2, html.light h3 { color: var(--text); }
+    html.light .logo { color: var(--text); }
+
+    .page-wrap { max-width: 760px; margin: 0 auto; padding: 8rem 2rem 5rem; }
+
+    .breadcrumb { font-size: 0.8rem; color: var(--muted); margin-bottom: 2rem; }
+    .breadcrumb a { color: var(--accent2); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; color: var(--white); margin-bottom: 0.5rem; }
+    .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; margin-bottom: 2.5rem; }
+
+    .legal-block { margin-bottom: 2.5rem; }
+    .legal-block h2 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+    .legal-block h3 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin: 1rem 0 0.4rem; }
+    .legal-block p { color: var(--muted); font-size: 0.93rem; line-height: 1.75; margin-bottom: 0.6rem; }
+    .legal-block ul { color: var(--muted); font-size: 0.93rem; line-height: 1.75; padding-left: 1.4rem; margin-bottom: 0.6rem; }
+    .legal-block ul li { margin-bottom: 0.3rem; }
+    .legal-block a { color: var(--accent2); text-decoration: none; }
+    .legal-block a:hover { text-decoration: underline; }
+
+    footer { text-align: center; padding: 2.5rem 1rem; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); }
+    footer strong { color: var(--accent2); }
+    .footer-links { margin-top: 0.6rem; display: flex; justify-content: center; gap: 1.5rem; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent2); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">DJ<span>PHILMUSIC</span></a>
+    <div class="nav-right">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="ueber-mich.html">Über mich</a></li>
+        <li><a href="galerie.html">Galerie</a></li>
+        <li><a href="index.html#bewertungen">Bewertungen</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Theme wechseln">
+        <span class="toggle-icon">🌙</span>
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-icon">☀️</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+    <div class="breadcrumb"><a href="index.html">Start</a> &rsaquo; Datenschutzerklärung</div>
+
+    <h1>Datenschutzerklärung</h1>
+    <div class="divider"></div>
+
+    <div class="legal-block">
+      <h2>1. Verantwortlicher</h2>
+      <p>
+        Philipp Mustermann<br>
+        DJ Philmusic<br>
+        Musterstraße 12<br>
+        50667 Köln<br>
+        E-Mail: <a href="mailto:info@djphilmusic.de">info@djphilmusic.de</a><br>
+        Telefon: +49 (0) 221 123 456 78
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>2. Allgemeines zur Datenverarbeitung</h2>
+      <p>
+        Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst und behandeln Ihre personenbezogenen Daten
+        vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften (DSGVO, BDSG) sowie dieser
+        Datenschutzerklärung.
+      </p>
+      <p>
+        Personenbezogene Daten werden auf dieser Website nur im technisch notwendigen Umfang erhoben.
+        In keinem Fall werden die erhobenen Daten verkauft oder aus anderen Gründen an Dritte weitergegeben.
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>3. Hosting & technischer Betrieb</h2>
+      <p>
+        Diese Website wird auf Servern eines technischen Dienstleisters gehostet. Beim Aufruf der Website
+        werden automatisch folgende Daten in sogenannten Server-Logfiles erfasst:
+      </p>
+      <ul>
+        <li>IP-Adresse des anfragenden Rechners</li>
+        <li>Datum und Uhrzeit des Zugriffs</li>
+        <li>Name und URL der abgerufenen Datei</li>
+        <li>Referrer-URL (zuvor besuchte Website)</li>
+        <li>Verwendeter Browser und Betriebssystem</li>
+      </ul>
+      <p>
+        Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
+        Interesse an der technischen Bereitstellung der Website). Die Daten werden nach 7 Tagen automatisch
+        gelöscht.
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>4. Kontaktformular</h2>
+      <p>
+        Wenn Sie uns über das Kontaktformular auf dieser Website eine Anfrage senden, werden die von Ihnen
+        eingegebenen Daten (Name, E-Mail-Adresse, Telefonnummer, Veranstaltungsdatum sowie Ihre Nachricht)
+        bei uns gespeichert, um Ihre Anfrage zu bearbeiten und ggf. Anschlussfragen zu stellen.
+      </p>
+      <p>
+        Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) sowie
+        Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Bearbeitung Ihrer Anfrage).
+        Ohne Ihre Einwilligung werden diese Daten nicht an Dritte weitergegeben.
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>5. Cookies</h2>
+      <p>
+        Diese Website verwendet ausschließlich technisch notwendige Cookies und speichert im lokalen
+        Browser-Speicher (localStorage) Ihre Präferenz für das helle oder dunkle Farbschema der Website
+        (Schlüssel: <code style="font-family:monospace;font-size:0.85rem;color:var(--accent2)">theme</code>).
+        Diese Speicherung erfolgt lokal in Ihrem Browser und wird nicht an unsere Server übertragen.
+      </p>
+      <p>
+        Es werden keine Tracking-, Analyse- oder Marketing-Cookies eingesetzt. Eine Einwilligung gemäß
+        § 25 TTDSG ist für rein technisch notwendige Speicherungen nicht erforderlich.
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>6. Keine Weitergabe an Dritte</h2>
+      <p>
+        Ihre personenbezogenen Daten werden nicht an Dritte weitergegeben, verkauft oder vermietet,
+        es sei denn, dies ist zur Erfüllung eines Vertrages erforderlich oder Sie haben ausdrücklich
+        eingewilligt. Eine Übermittlung in Drittstaaten außerhalb der EU findet nicht statt.
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>7. Ihre Rechte als betroffene Person</h2>
+      <p>Sie haben gemäß DSGVO folgende Rechte gegenüber uns als Verantwortlichem:</p>
+      <ul>
+        <li><strong>Auskunftsrecht</strong> (Art. 15 DSGVO): Auskunft über Ihre gespeicherten Daten</li>
+        <li><strong>Berichtigungsrecht</strong> (Art. 16 DSGVO): Korrektur unrichtiger Daten</li>
+        <li><strong>Löschungsrecht</strong> (Art. 17 DSGVO): Löschung Ihrer gespeicherten Daten</li>
+        <li><strong>Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO)</li>
+        <li><strong>Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
+        <li><strong>Widerspruchsrecht</strong> (Art. 21 DSGVO): Widerspruch gegen die Verarbeitung</li>
+        <li><strong>Widerruf einer Einwilligung</strong> (Art. 7 Abs. 3 DSGVO) mit Wirkung für die Zukunft</li>
+      </ul>
+      <p>
+        Zur Geltendmachung Ihrer Rechte wenden Sie sich bitte an:
+        <a href="mailto:info@djphilmusic.de">info@djphilmusic.de</a>
+      </p>
+      <p>
+        Unbeschadet eines anderweitigen verwaltungsrechtlichen oder gerichtlichen Rechtsbehelfs haben Sie
+        zudem das Recht, sich bei einer Aufsichtsbehörde zu beschweren. Die zuständige Aufsichtsbehörde
+        für Nordrhein-Westfalen ist:
+      </p>
+      <p>
+        Landesbeauftragte für Datenschutz und Informationsfreiheit NRW<br>
+        Postfach 20 04 44, 40102 Düsseldorf<br>
+        <a href="https://www.ldi.nrw.de" target="_blank" rel="noopener">www.ldi.nrw.de</a>
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>8. Datensicherheit</h2>
+      <p>
+        Wir setzen technische und organisatorische Sicherheitsmaßnahmen ein, um Ihre Daten gegen
+        zufällige oder vorsätzliche Manipulationen, Verlust, Zerstörung oder gegen den Zugriff
+        unberechtigter Personen zu schützen. Unsere Sicherheitsmaßnahmen werden entsprechend der
+        technologischen Entwicklung fortlaufend verbessert.
+      </p>
+    </div>
+
+    <div class="legal-block">
+      <h2>9. Aktualität dieser Datenschutzerklärung</h2>
+      <p>
+        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand März 2026. Durch die
+        Weiterentwicklung unserer Website oder aufgrund geänderter gesetzlicher bzw. behördlicher
+        Vorgaben kann es notwendig werden, diese Datenschutzerklärung zu ändern.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 <strong>DJ Philmusic</strong> &mdash; Alle Rechte vorbehalten.
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+    </div>
+  </footer>
+
+  <script>
+    const htmlEl = document.documentElement;
+    const toggleBtn = document.getElementById('themeToggle');
+    if (localStorage.getItem('theme') === 'light') htmlEl.classList.add('light');
+    toggleBtn.addEventListener('click', () => {
+      htmlEl.classList.toggle('light');
+      localStorage.setItem('theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
+    });
+  </script>
+</body>
+</html>

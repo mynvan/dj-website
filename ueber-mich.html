@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Über mich – DJ Philmusic</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0a0a0f;
+      --surface: #12121a;
+      --card:    #1a1a26;
+      --border:  #2a2a40;
+      --accent:  #7c3aed;
+      --accent2: #a855f7;
+      --glow:    rgba(124, 58, 237, 0.35);
+      --text:    #e2e2f0;
+      --muted:   #7a7a9a;
+      --white:   #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent2); }
+
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    nav a:hover, nav a.active { color: var(--accent2); }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      display: flex; align-items: center; gap: 0.45rem;
+      background: none; border: none; cursor: pointer; padding: 0;
+    }
+    .toggle-icon { font-size: 0.9rem; line-height: 1; }
+    .toggle-track {
+      width: 42px; height: 23px; background: var(--border);
+      border-radius: 999px; position: relative;
+      transition: background 0.3s; flex-shrink: 0;
+    }
+    .toggle-thumb {
+      position: absolute; top: 3px; left: 3px;
+      width: 17px; height: 17px; background: #fff;
+      border-radius: 50%;
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    html.light .toggle-track { background: var(--accent); }
+    html.light .toggle-thumb { transform: translateX(19px); }
+
+    /* ── LIGHT MODE ── */
+    html.light {
+      --bg:      #f0f0f8;
+      --surface: #e4e4f0;
+      --card:    #ffffff;
+      --border:  #c4c4dc;
+      --glow:    rgba(124, 58, 237, 0.12);
+      --text:    #1a1a2e;
+      --muted:   #5a5a80;
+    }
+    html.light nav { background: rgba(240, 240, 248, 0.9); }
+    html.light h1, html.light h2 { color: var(--text); }
+    html.light .logo { color: var(--text); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 9rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 30%, var(--glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-sub {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .divider {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+      margin-bottom: 3rem;
+    }
+
+    /* About grid */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 4rem;
+      align-items: start;
+      margin-bottom: 5rem;
+    }
+
+    .about-img-wrap { position: relative; }
+    .about-img-wrap img {
+      width: 100%; aspect-ratio: 3/4;
+      object-fit: cover; border-radius: 20px;
+      display: block; filter: brightness(0.9);
+    }
+    .about-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -10px -10px 10px 10px;
+      border: 2px solid var(--accent);
+      border-radius: 22px;
+      z-index: -1; opacity: 0.5;
+    }
+    .about-tag {
+      position: absolute; bottom: 1.5rem; left: -1.5rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.08em; padding: 0.6rem 1.1rem;
+      border-radius: 8px; box-shadow: 0 4px 20px var(--glow);
+    }
+
+    .about-text h2 {
+      font-size: 1.6rem; font-weight: 800;
+      color: var(--white); margin-bottom: 0.5rem;
+    }
+    .about-text .divider { margin-bottom: 1.5rem; }
+    .about-text p {
+      color: var(--muted); font-size: 0.97rem;
+      line-height: 1.8; margin-bottom: 1.2rem;
+    }
+
+    /* Stats */
+    .about-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1rem; margin: 2rem 0;
+    }
+    .stat-box {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.1rem 1rem; text-align: center;
+    }
+    .stat-num {
+      font-size: 1.8rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; display: block; line-height: 1.1;
+    }
+    .stat-label {
+      font-size: 0.75rem; color: var(--muted);
+      letter-spacing: 0.05em; margin-top: 0.3rem; display: block;
+    }
+
+    /* Genre Chips */
+    .about-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .chip {
+      padding: 0.35rem 0.9rem; border: 1px solid var(--border);
+      border-radius: 999px; font-size: 0.8rem;
+      color: var(--muted); background: var(--card);
+    }
+
+    /* Timeline */
+    .timeline-section { margin-bottom: 5rem; }
+    .timeline-section h2 {
+      font-size: 1.6rem; font-weight: 800;
+      color: var(--white); margin-bottom: 0.5rem;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin-top: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .tl-item {
+      position: relative;
+      padding: 0 0 2.5rem 1.5rem;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem; top: 0.4rem;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 3px var(--accent);
+    }
+    .tl-year {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 0.3rem;
+    }
+    .tl-title {
+      font-size: 1rem; font-weight: 700;
+      color: var(--text); margin-bottom: 0.4rem;
+    }
+    .tl-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+    /* Values */
+    .values-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem; margin-top: 2rem;
+    }
+    .value-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.75rem;
+      transition: border-color 0.2s;
+    }
+    .value-card:hover { border-color: var(--accent); }
+    .value-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .value-title {
+      font-size: 1rem; font-weight: 700;
+      color: var(--text); margin-bottom: 0.5rem;
+    }
+    .value-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+    /* CTA */
+    .cta-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 50%, var(--glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-box h2 { font-size: 1.6rem; font-weight: 800; color: var(--white); margin-bottom: 0.75rem; }
+    .cta-box p { color: var(--muted); margin-bottom: 2rem; }
+
+    .btn {
+      display: inline-block; padding: 0.85rem 2.2rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; text-decoration: none; border-radius: 8px;
+      font-weight: 600; font-size: 0.95rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 24px var(--glow);
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--glow); }
+
+    /* Footer */
+    footer {
+      text-align: center; padding: 2.5rem 1rem;
+      color: var(--muted); font-size: 0.82rem;
+      border-top: 1px solid var(--border);
+    }
+    footer strong { color: var(--accent2); }
+    .footer-links { margin-top: 0.6rem; display: flex; justify-content: center; gap: 1.5rem; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent2); }
+
+    /* Responsive */
+    @media (max-width: 750px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-tag { left: 0; }
+      .about-img-wrap::before { display: none; }
+      .values-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: repeat(3, 1fr); }
+      nav ul { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="logo">DJ<span>PHILMUSIC</span></a>
+    <div class="nav-right">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="ueber-mich.html" class="active">Über mich</a></li>
+        <li><a href="galerie.html">Galerie</a></li>
+        <li><a href="index.html#bewertungen">Bewertungen</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Theme wechseln">
+        <span class="toggle-icon">🌙</span>
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-icon">☀️</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <p class="section-label">Persönlich</p>
+    <h1>Hallo, ich bin <span>Philmusic.</span></h1>
+    <p class="page-sub">Hochzeits-DJ aus Leidenschaft – seit über zehn Jahren sorge ich dafür, dass Tanzflächen brennen und Erinnerungen entstehen.</p>
+  </div>
+
+  <!-- MAIN -->
+  <div class="container">
+
+    <!-- Bio + Photo -->
+    <div class="about-grid">
+      <div class="about-img-wrap">
+        <img src="https://picsum.photos/seed/djportrait/500/667" alt="DJ Nexus Portrait" />
+        <div class="about-tag">&#9829; Hochzeits-DJ seit 2014</div>
+      </div>
+
+      <div class="about-text">
+        <h2>Wer steckt hinter DJ Nexus?</h2>
+        <div class="divider"></div>
+        <p>
+          Was als Leidenschaft in kleinen Kellerclubs begann, ist heute mein Herzensberuf.
+          Ich bin Philmusic, aufgewachsen in Köln, und ich begleite Brautpaare durch den schönsten
+          Tag ihres Lebens – mit Musik, die bewegt, verbindet und unvergesslich macht.
+        </p>
+        <p>
+          Seit über zehn Jahren bin ich als Hochzeits-DJ aktiv und habe mehr als 300 Feiern
+          begleitet – von intimen Familienfesten mit 30 Gästen bis zu großen
+          Hochzeitsgesellschaften mit 400 Personen. Jede Feier ist anders, und genau das liebe ich daran.
+        </p>
+        <p>
+          Mein Ansatz: Zuhören zuerst. In einem ausführlichen Vorgespräch lerne ich euch kennen,
+          verstehe euren Musikgeschmack und lese zwischen den Zeilen. Das Ergebnis ist kein
+          Standard-Programm – sondern ein Set, das sich anfühlt, als wäre es nur für euch gemacht.
+        </p>
+        <p>
+          Privat bin ich leidenschaftlicher Plattensammler, Kaffeetrinker und begeisterter
+          Hobbyköch. Wenn ich nicht auf Hochzeiten spiele, findet ihr mich auf Flohmärkten
+          auf der Suche nach dem nächsten Vinyl-Schatz.
+        </p>
+
+        <div class="about-stats">
+          <div class="stat-box">
+            <span class="stat-num">300+</span>
+            <span class="stat-label">Hochzeiten</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">10+</span>
+            <span class="stat-label">Jahre Erfahrung</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">4,9</span>
+            <span class="stat-label">Ø Bewertung</span>
+          </div>
+        </div>
+
+        <div class="about-chips">
+          <span class="chip">House & Pop</span>
+          <span class="chip">Schlager auf Wunsch</span>
+          <span class="chip">R&B & Soul</span>
+          <span class="chip">Charts</span>
+          <span class="chip">Klassische Walzer</span>
+          <span class="chip">Live-Remixing</span>
+          <span class="chip">Moderation</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline-section">
+      <h2>Mein Weg</h2>
+      <div class="divider"></div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2012</div>
+          <div class="tl-title">Die ersten Schritte</div>
+          <div class="tl-desc">Erste Auftritte in Kölner Clubs und auf privaten Partys. Die Leidenschaft für Musik und das Lesen von Stimmungen entsteht.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2014</div>
+          <div class="tl-title">Erste Hochzeit</div>
+          <div class="tl-desc">Der erste Auftritt als Hochzeits-DJ – und sofort klar: Das ist es. Die Energie, wenn ein Paar zum ersten Mal als Eheleute auf die Tanzfläche geht, ist unvergleichlich.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2017</div>
+          <div class="tl-title">Professionelles Setup</div>
+          <div class="tl-desc">Investition in professionelle Pioneer-Technik, erste eigene PA-Anlage und Lichtanlage. DJ Nexus wird zum Vollzeitberuf.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2020</div>
+          <div class="tl-title">100. Hochzeit</div>
+          <div class="tl-desc">Ein Meilenstein trotz schwieriger Zeiten. Das Netzwerk aus Locations, Fotografen und Hochzeitsplanern wächst stetig.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2024</div>
+          <div class="tl-title">300+ Hochzeiten & Top-Bewertungen</div>
+          <div class="tl-desc">Über 300 glückliche Paare, eine durchschnittliche Bewertung von 4,9 Sternen und Buchungen bis weit ins Jahr 2026.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Values -->
+    <div style="margin-bottom: 5rem;">
+      <h2>Was mich antreibt</h2>
+      <div class="divider"></div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">🎧</div>
+          <div class="value-title">Musik als Sprache</div>
+          <div class="value-desc">Musik verbindet Menschen über Generationen und Kulturen hinweg. Auf Hochzeiten erlebe ich das täglich – und es fasziniert mich noch immer.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">💬</div>
+          <div class="value-title">Zuhören zuerst</div>
+          <div class="value-desc">Jedes Paar ist einzigartig. Ich nehme mir Zeit, euch wirklich kennenzulernen – damit das Set nicht nach DJ klingt, sondern nach euch.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">✨</div>
+          <div class="value-title">Liebe zum Detail</div>
+          <div class="value-desc">Von der perfekten Übergabe beim Eröffnungstanz bis zur letzten Runde – ich denke jeden Moment der Nacht mit euch durch.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-box">
+      <h2>Bereit für euren perfekten Abend?</h2>
+      <p>Schreibt mir – ich freue mich auf eure Geschichte.</p>
+      <a href="index.html#kontakt" class="btn">Jetzt Anfrage stellen</a>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 <strong>DJ Philmusic</strong> &mdash; Alle Rechte vorbehalten.
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const htmlEl = document.documentElement;
+    const toggleBtn = document.getElementById('themeToggle');
+    if (localStorage.getItem('theme') === 'light') htmlEl.classList.add('light');
+    toggleBtn.addEventListener('click', () => {
+      htmlEl.classList.toggle('light');
+      localStorage.setItem('theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galerie – DJ Philmusic</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0a0a0f;
+      --surface: #12121a;
+      --card:    #1a1a26;
+      --border:  #2a2a40;
+      --accent:  #7c3aed;
+      --accent2: #a855f7;
+      --glow:    rgba(124, 58, 237, 0.35);
+      --text:    #e2e2f0;
+      --muted:   #7a7a9a;
+      --white:   #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.4rem; font-weight: 800;
+      letter-spacing: 0.15em; color: var(--white);
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent2); }
+
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.9rem; letter-spacing: 0.05em; transition: color 0.2s;
+    }
+    nav a:hover, nav a.active { color: var(--accent2); }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      display: flex; align-items: center; gap: 0.45rem;
+      background: none; border: none; cursor: pointer; padding: 0;
+    }
+    .toggle-icon { font-size: 0.9rem; line-height: 1; }
+    .toggle-track {
+      width: 42px; height: 23px; background: var(--border);
+      border-radius: 999px; position: relative;
+      transition: background 0.3s; flex-shrink: 0;
+    }
+    .toggle-thumb {
+      position: absolute; top: 3px; left: 3px;
+      width: 17px; height: 17px; background: #fff; border-radius: 50%;
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    html.light .toggle-track { background: var(--accent); }
+    html.light .toggle-thumb { transform: translateX(19px); }
+
+    /* ── LIGHT MODE ── */
+    html.light {
+      --bg: #f0f0f8; --surface: #e4e4f0; --card: #ffffff;
+      --border: #c4c4dc; --glow: rgba(124,58,237,0.12);
+      --text: #1a1a2e; --muted: #5a5a80;
+    }
+    html.light nav { background: rgba(240,240,248,0.9); }
+    html.light h1, html.light h2 { color: var(--text); }
+    html.light .logo { color: var(--text); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 9rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 30%, var(--glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .section-label {
+      font-size: 0.75rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--accent2); margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 900; color: var(--white);
+      letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1rem;
+    }
+    h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .page-sub { color: var(--muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto; }
+
+    /* ── FILTER TABS ── */
+    .filter-bar {
+      display: flex; justify-content: center;
+      gap: 0.6rem; flex-wrap: wrap;
+      padding: 0 2rem 3rem;
+    }
+
+    .filter-btn {
+      padding: 0.45rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--muted);
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .filter-btn:hover { border-color: var(--accent); color: var(--accent2); }
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-color: transparent; color: #fff;
+    }
+
+    /* ── GALLERY GRID ── */
+    .gallery-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 240px;
+      gap: 14px;
+    }
+
+    .gallery-item {
+      border-radius: 14px; overflow: hidden;
+      position: relative; cursor: pointer;
+      background: var(--card);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .gallery-item.tall  { grid-row: span 2; }
+    .gallery-item.wide  { grid-column: span 2; }
+
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; transition: transform 0.4s ease;
+      filter: brightness(0.85);
+    }
+    .gallery-item:hover img { transform: scale(1.06); filter: brightness(1); }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(124,58,237,0.4) 0%, transparent 55%);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .gallery-item:hover::after { opacity: 1; }
+
+    .gallery-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1rem 1.1rem 0.9rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      color: #fff; font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.04em;
+      transform: translateY(4px); opacity: 0;
+      transition: all 0.3s; z-index: 1;
+    }
+    .gallery-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
+
+    /* hidden by filter */
+    .gallery-item.hidden { display: none; }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.93);
+      align-items: center; justify-content: center;
+      flex-direction: column; gap: 1rem;
+    }
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw; max-height: 80vh;
+      border-radius: 12px; object-fit: contain;
+      box-shadow: 0 0 80px rgba(124,58,237,0.3);
+    }
+
+    .lightbox-caption {
+      color: var(--muted); font-size: 0.88rem; letter-spacing: 0.05em;
+    }
+
+    .lightbox-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: none; border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; font-size: 1.4rem; width: 40px; height: 40px;
+      border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-close:hover { background: var(--accent); }
+
+    .lightbox-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(124,58,237,0.25); border: 1px solid var(--accent);
+      color: #fff; font-size: 1.4rem; width: 44px; height: 44px;
+      border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-nav:hover { background: var(--accent); }
+    .lightbox-prev { left: 1.5rem; }
+    .lightbox-next { right: 1.5rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2.5rem 1rem;
+      color: var(--muted); font-size: 0.82rem;
+      border-top: 1px solid var(--border);
+    }
+    footer strong { color: var(--accent2); }
+    .footer-links { margin-top: 0.6rem; display: flex; justify-content: center; gap: 1.5rem; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent2); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 750px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+      .gallery-item.wide { grid-column: span 1; }
+      nav ul { gap: 1rem; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+      .gallery-item.tall { grid-row: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="logo">DJ<span>PHILMUSIC</span></a>
+    <div class="nav-right">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="ueber-mich.html">Über mich</a></li>
+        <li><a href="galerie.html" class="active">Galerie</a></li>
+        <li><a href="index.html#bewertungen">Bewertungen</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Theme wechseln">
+        <span class="toggle-icon">🌙</span>
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-icon">☀️</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <p class="section-label">Impressionen</p>
+    <h1>Momente, die <span>bleiben.</span></h1>
+    <p class="page-sub">Einblicke in Hochzeiten, die ich begleiten durfte – jede Nacht einzigartig.</p>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">Alle</button>
+    <button class="filter-btn" data-filter="tanzflaeche">Tanzfläche</button>
+    <button class="filter-btn" data-filter="setup">DJ Setup</button>
+    <button class="filter-btn" data-filter="location">Location</button>
+    <button class="filter-btn" data-filter="momente">Momente</button>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="gallery-container">
+    <div class="gallery-grid" id="galleryGrid">
+
+      <div class="gallery-item tall" data-cat="tanzflaeche">
+        <img src="https://picsum.photos/seed/wed1/600/900" alt="Tanzfläche bei Nacht" loading="lazy" />
+        <div class="gallery-caption">Tanzfläche bei Nacht</div>
+      </div>
+      <div class="gallery-item" data-cat="setup">
+        <img src="https://picsum.photos/seed/wed2/600/400" alt="Pioneer Setup" loading="lazy" />
+        <div class="gallery-caption">Pioneer Setup</div>
+      </div>
+      <div class="gallery-item" data-cat="momente">
+        <img src="https://picsum.photos/seed/wed3/600/400" alt="Erster Tanz" loading="lazy" />
+        <div class="gallery-caption">Erster Tanz</div>
+      </div>
+      <div class="gallery-item wide" data-cat="location">
+        <img src="https://picsum.photos/seed/wed4/900/400" alt="Schloss Location" loading="lazy" />
+        <div class="gallery-caption">Schloss Bensberg</div>
+      </div>
+      <div class="gallery-item" data-cat="tanzflaeche">
+        <img src="https://picsum.photos/seed/wed5/600/400" alt="Volle Tanzfläche" loading="lazy" />
+        <div class="gallery-caption">Volle Tanzfläche</div>
+      </div>
+      <div class="gallery-item tall" data-cat="setup">
+        <img src="https://picsum.photos/seed/wed6/600/900" alt="Lichtshow" loading="lazy" />
+        <div class="gallery-caption">Lichtshow</div>
+      </div>
+      <div class="gallery-item" data-cat="momente">
+        <img src="https://picsum.photos/seed/wed7/600/400" alt="Brautpaar" loading="lazy" />
+        <div class="gallery-caption">Brautpaar</div>
+      </div>
+      <div class="gallery-item" data-cat="location">
+        <img src="https://picsum.photos/seed/wed8/600/400" alt="Weingut Terrasse" loading="lazy" />
+        <div class="gallery-caption">Weingut Terrasse</div>
+      </div>
+      <div class="gallery-item wide" data-cat="tanzflaeche">
+        <img src="https://picsum.photos/seed/wed9/900/400" alt="Abendstimmung" loading="lazy" />
+        <div class="gallery-caption">Abendstimmung</div>
+      </div>
+      <div class="gallery-item" data-cat="setup">
+        <img src="https://picsum.photos/seed/wed10/600/400" alt="Mischpult Detail" loading="lazy" />
+        <div class="gallery-caption">Mischpult Detail</div>
+      </div>
+      <div class="gallery-item" data-cat="momente">
+        <img src="https://picsum.photos/seed/wed11/600/400" alt="Sektempfang" loading="lazy" />
+        <div class="gallery-caption">Sektempfang</div>
+      </div>
+      <div class="gallery-item tall" data-cat="location">
+        <img src="https://picsum.photos/seed/wed12/600/900" alt="Villa Location" loading="lazy" />
+        <div class="gallery-caption">Villa Rothschild</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&#x2715;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&#8592;</button>
+    <img src="" alt="" id="lightboxImg" />
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">&#8594;</button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 <strong>DJ Philmusic</strong> &mdash; Alle Rechte vorbehalten.
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const htmlEl = document.documentElement;
+    const toggleBtn = document.getElementById('themeToggle');
+    if (localStorage.getItem('theme') === 'light') htmlEl.classList.add('light');
+    toggleBtn.addEventListener('click', () => {
+      htmlEl.classList.toggle('light');
+      localStorage.setItem('theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
+    });
+
+    // Filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.gallery-item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.filter;
+        items.forEach(item => {
+          if (cat === 'all' || item.dataset.cat === cat) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Lightbox with prev/next
+    const lightbox     = document.getElementById('lightbox');
+    const lightboxImg  = document.getElementById('lightboxImg');
+    const lightboxCap  = document.getElementById('lightboxCaption');
+    let currentIndex   = 0;
+    let visibleItems   = [];
+
+    function updateVisible() {
+      visibleItems = [...document.querySelectorAll('.gallery-item:not(.hidden)')];
+    }
+
+    function openLightbox(index) {
+      updateVisible();
+      currentIndex = index;
+      const img = visibleItems[currentIndex].querySelector('img');
+      const cap = visibleItems[currentIndex].querySelector('.gallery-caption');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxCap.textContent = cap ? cap.textContent : '';
+      lightbox.classList.add('open');
+    }
+
+    items.forEach((item, i) => {
+      item.addEventListener('click', () => {
+        updateVisible();
+        const visIdx = visibleItems.indexOf(item);
+        openLightbox(visIdx);
+      });
+    });
+
+    document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+
+    document.getElementById('lightboxPrev').addEventListener('click', e => {
+      e.stopPropagation();
+      openLightbox((currentIndex - 1 + visibleItems.length) % visibleItems.length);
+    });
+    document.getElementById('lightboxNext').addEventListener('click', e => {
+      e.stopPropagation();
+      openLightbox((currentIndex + 1) % visibleItems.length);
+    });
+
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape')      lightbox.classList.remove('open');
+      if (e.key === 'ArrowLeft')   openLightbox((currentIndex - 1 + visibleItems.length) % visibleItems.length);
+      if (e.key === 'ArrowRight')  openLightbox((currentIndex + 1) % visibleItems.length);
+    });
+  </script>
+</body>
+</html>

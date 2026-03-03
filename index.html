@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DJ Philmusic – Hochzeits-DJ</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:        #0a0a0f;
+      --surface:   #12121a;
+      --card:      #1a1a26;
+      --border:    #2a2a40;
+      --accent:    #7c3aed;
+      --accent2:   #a855f7;
+      --glow:      rgba(124, 58, 237, 0.35);
+      --text:      #e2e2f0;
+      --muted:     #7a7a9a;
+      --white:     #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: var(--white);
+    }
+
+    .logo span {
+      color: var(--accent2);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--accent2); }
+
+    /* ── HERO ── */
+    header {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 60%, var(--glow) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 20% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.03em;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 24px var(--glow);
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px var(--glow);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent2);
+      box-shadow: none;
+      margin-left: 1rem;
+    }
+
+    .btn-outline:hover {
+      background: rgba(124, 58, 237, 0.1);
+      box-shadow: none;
+    }
+
+    /* equalizer bars decoration */
+    .eq {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      margin-top: 3.5rem;
+      height: 40px;
+    }
+
+    .eq span {
+      width: 5px;
+      border-radius: 3px;
+      background: linear-gradient(to top, var(--accent), var(--accent2));
+      opacity: 0.7;
+      animation: eq 0.8s ease-in-out infinite alternate;
+    }
+
+    .eq span:nth-child(1)  { height: 30%; animation-delay: 0.0s; }
+    .eq span:nth-child(2)  { height: 70%; animation-delay: 0.1s; }
+    .eq span:nth-child(3)  { height: 50%; animation-delay: 0.2s; }
+    .eq span:nth-child(4)  { height: 90%; animation-delay: 0.3s; }
+    .eq span:nth-child(5)  { height: 40%; animation-delay: 0.4s; }
+    .eq span:nth-child(6)  { height: 80%; animation-delay: 0.15s; }
+    .eq span:nth-child(7)  { height: 55%; animation-delay: 0.25s; }
+    .eq span:nth-child(8)  { height: 65%; animation-delay: 0.05s; }
+    .eq span:nth-child(9)  { height: 35%; animation-delay: 0.35s; }
+    .eq span:nth-child(10) { height: 75%; animation-delay: 0.45s; }
+
+    @keyframes eq {
+      from { transform: scaleY(0.3); }
+      to   { transform: scaleY(1); }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── FAQ ── */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .faq-item:hover {
+      border-color: var(--accent);
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text);
+      gap: 1rem;
+      user-select: none;
+    }
+
+    .faq-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent2);
+      font-size: 1rem;
+      transition: transform 0.3s, background 0.2s;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      background: var(--accent);
+      color: var(--white);
+      border-color: var(--accent);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.2s;
+      color: var(--muted);
+      padding: 0 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      padding: 0 1.5rem 1.25rem;
+    }
+
+    /* ── CONTACT ── */
+    #kontakt { background: var(--surface); max-width: 100%; padding: 6rem 2rem; }
+
+    .contact-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    input, textarea, select {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      width: 100%;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: var(--muted);
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+    }
+
+    textarea { resize: vertical; min-height: 130px; }
+
+    select option { background: var(--card); }
+
+    .form-submit {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .form-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .success-msg {
+      display: none;
+      background: rgba(124, 58, 237, 0.12);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      color: var(--accent2);
+      font-size: 0.95rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer strong { color: var(--accent2); }
+
+    .footer-links {
+      margin-top: 0.6rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--accent2); }
+
+    /* ── THEME TOGGLE ── */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .toggle-icon {
+      font-size: 0.9rem;
+      line-height: 1;
+    }
+
+    .toggle-track {
+      width: 42px;
+      height: 23px;
+      background: var(--border);
+      border-radius: 999px;
+      position: relative;
+      transition: background 0.3s;
+      flex-shrink: 0;
+    }
+
+    .toggle-thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 17px;
+      height: 17px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    html.light .toggle-track { background: var(--accent); }
+    html.light .toggle-thumb { transform: translateX(19px); }
+
+    /* ── LIGHT MODE VARIABLES ── */
+    html.light {
+      --bg:      #f0f0f8;
+      --surface: #e4e4f0;
+      --card:    #ffffff;
+      --border:  #c4c4dc;
+      --glow:    rgba(124, 58, 237, 0.12);
+      --text:    #1a1a2e;
+      --muted:   #5a5a80;
+    }
+
+    html.light nav {
+      background: rgba(240, 240, 248, 0.9);
+    }
+
+    html.light h1,
+    html.light h2 {
+      color: var(--text);
+    }
+
+    html.light .logo {
+      color: var(--text);
+    }
+
+    html.light select option {
+      background: var(--card);
+      color: var(--text);
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-img-wrap {
+      position: relative;
+    }
+
+    .about-img-wrap img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 20px;
+      display: block;
+      filter: brightness(0.9);
+    }
+
+    .about-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -10px -10px 10px 10px;
+      border: 2px solid var(--accent);
+      border-radius: 22px;
+      z-index: -1;
+      opacity: 0.5;
+    }
+
+    .about-tag {
+      position: absolute;
+      bottom: 1.5rem;
+      left: -1.5rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 0.6rem 1.1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px var(--glow);
+    }
+
+    .about-text p {
+      color: var(--muted);
+      font-size: 0.97rem;
+      line-height: 1.8;
+      margin-bottom: 1.2rem;
+    }
+
+    .about-text p:last-of-type { margin-bottom: 0; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .stat-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1rem;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-top: 0.3rem;
+      display: block;
+    }
+
+    .about-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .chip {
+      padding: 0.35rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: var(--card);
+    }
+
+    @media (max-width: 750px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-tag { left: 0; }
+      .about-img-wrap::before { display: none; }
+    }
+
+    /* ── REVIEWS ── */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .review-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .review-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .review-stars {
+      color: #f59e0b;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+    }
+
+    .review-text {
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .review-text::before {
+      content: '\201C';
+      font-size: 2.5rem;
+      line-height: 0;
+      vertical-align: -0.6rem;
+      color: var(--accent);
+      margin-right: 4px;
+      font-family: Georgia, serif;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+
+    .review-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .review-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .review-date {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .review-platform {
+      margin-left: auto;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── GALLERY ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 220px;
+      gap: 12px;
+    }
+
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      background: var(--card);
+    }
+
+    .gallery-item.tall { grid-row: span 2; }
+    .gallery-item.wide { grid-column: span 2; }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+      filter: brightness(0.88);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.06);
+      filter: brightness(1);
+    }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(124,58,237,0.35) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .gallery-item:hover::after { opacity: 1; }
+
+    /* lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.92);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      border-radius: 12px;
+      object-fit: contain;
+      box-shadow: 0 0 60px rgba(124,58,237,0.3);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: 1px solid var(--border);
+      color: #fff;
+      font-size: 1.4rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-close:hover { background: var(--accent); }
+
+    @media (max-width: 700px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 160px;
+      }
+      .gallery-item.wide { grid-column: span 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      nav ul { gap: 1.2rem; }
+      .btn-outline { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">DJ<span>PHILMUSIC</span></div>
+    <div class="nav-right">
+      <ul>
+        <li><a href="#hero">Start</a></li>
+        <li><a href="ueber-mich.html">Über mich</a></li>
+        <li><a href="galerie.html">Galerie</a></li>
+        <li><a href="#bewertungen">Bewertungen</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Theme wechseln">
+        <span class="toggle-icon">🌙</span>
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-icon">☀️</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="hero">
+    <div class="badge">&#9829; Hochzeits-DJ – Buchungen 2026</div>
+    <h1>Euer Tag.<br><span>Eure Musik.</span></h1>
+    <p class="hero-sub">
+      Unvergessliche Momente auf der Tanzfläche – vom ersten Tanz
+      bis zur letzten Runde. Maßgeschneidert für euren schönsten Tag.
+    </p>
+    <div>
+      <a href="#kontakt" class="btn">Jetzt buchen</a>
+      <a href="#faq" class="btn btn-outline">Mehr erfahren</a>
+    </div>
+    <div class="eq" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </header>
+
+  <!-- REVIEWS -->
+  <section id="bewertungen" style="background: var(--surface); max-width: 100%; padding: 6rem 2rem;">
+    <div style="max-width: 900px; margin: 0 auto;">
+      <p class="section-label">Was Paare sagen</p>
+      <h2>Bewertungen</h2>
+      <div class="divider"></div>
+
+      <div class="reviews-grid">
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">DJ Nexus hat unsere Hochzeit zu etwas ganz Besonderem gemacht. Er hat die Stimmung perfekt gelesen und die Tanzfläche war die ganze Nacht voll. Absolut empfehlenswert!</p>
+          <div class="review-author">
+            <div class="review-avatar">SM</div>
+            <div>
+              <div class="review-name">Sarah & Markus</div>
+              <div class="review-date">Oktober 2025 · Schloss Bensberg</div>
+            </div>
+            <span class="review-platform">Google</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">Von der Planung bis zur letzten Minute alles top. Die Musikauswahl war genau unser Geschmack, der erste Tanz war unvergesslich. Unsere Gäste reden noch heute davon.</p>
+          <div class="review-author">
+            <div class="review-avatar">LF</div>
+            <div>
+              <div class="review-name">Laura & Felix</div>
+              <div class="review-date">August 2025 · Gut Kump</div>
+            </div>
+            <span class="review-platform">WeddingWire</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">Professionell, freundlich und unglaublich flexibel. Als wir kurzfristig den Zeitplan änderten, hat er einfach mitgezogen. Beste Entscheidung, die wir getroffen haben!</p>
+          <div class="review-author">
+            <div class="review-avatar">JK</div>
+            <div>
+              <div class="review-name">Julia & Kai</div>
+              <div class="review-date">Juni 2025 · Villa Rothschild</div>
+            </div>
+            <span class="review-platform">Google</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">Das Vorgespräch war super strukturiert und gab uns das Gefühl, in besten Händen zu sein. Auf der Feier selbst hat er dann nochmal alle Erwartungen übertroffen.</p>
+          <div class="review-author">
+            <div class="review-avatar">AN</div>
+            <div>
+              <div class="review-name">Anna & Nico</div>
+              <div class="review-date">Mai 2025 · Hofgut Georgenthal</div>
+            </div>
+            <span class="review-platform">Hochzeit.de</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">Wir hatten viele internationale Gäste mit unterschiedlichem Musikgeschmack. DJ Nexus hat alle abgeholt – von Schlager bis House war alles dabei, ohne kitschig zu wirken.</p>
+          <div class="review-author">
+            <div class="review-avatar">TL</div>
+            <div>
+              <div class="review-name">Tanja & Leon</div>
+              <div class="review-date">September 2025 · Alte Gärtnerei</div>
+            </div>
+            <span class="review-platform">Google</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">Die Lichtanlage war ein echtes Highlight. Technisch einwandfrei, menschlich super angenehm. Man merkt, dass er Hochzeiten liebt und nicht nur einen Job macht.</p>
+          <div class="review-author">
+            <div class="review-avatar">MR</div>
+            <div>
+              <div class="review-name">Mia & Rafael</div>
+              <div class="review-date">Juli 2025 · Weingut am Rhein</div>
+            </div>
+            <span class="review-platform">WeddingWire</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <p class="section-label">Häufige Fragen</p>
+    <h2>FAQ</h2>
+    <div class="divider"></div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Kannst du die Musik individuell auf uns abstimmen?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Absolut. Vor der Hochzeit führen wir ein ausführliches Gespräch über eure
+          Musikwünsche – von der Tischmusik über den Eröffnungstanz bis zur Party.
+          Ihr könnt Wunschsongs angeben und Tabu-Titel festlegen.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Übernimmst du auch Moderation und Ansagen?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Ja, auf Wunsch übernehme ich diskrete Moderationen – z. B. Begrüßung der Gäste,
+          Ankündigung des Eröffnungstanzes oder der Tortenanschnitt-Musik. Der Fokus
+          bleibt dabei immer auf euch als Brautpaar.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Welche technische Ausrüstung bringst du mit?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Ich bringe ein professionelles DJ-Setup mit (Pioneer CDJ-3000s, DJM-900NXS2)
+          sowie Laptop-Backup. PA-Anlage, Mikrofon für Reden und Lichtanlage können
+          auf Wunsch dazu gebucht werden.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Spielst du auch außerhalb der Region?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Ja, deutschlandweit und auf Anfrage auch international. Für Locations außerhalb
+          eines 50-km-Radius fallen Fahrt- und ggf. Übernachtungskosten an, die
+          transparent im Angebot ausgewiesen werden.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Wie lange spielst du auf einer Hochzeit?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Typischerweise 4–6 Stunden Partymusik ab dem Abendessen. Dazu kommt optional
+          Hintergrundmusik für Sektempfang und Dinner. Die genaue Zeitplanung stimmen
+          wir gemeinsam mit eurer Location ab.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Wie läuft die Buchung und Bezahlung ab?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Nach unserem Erstgespräch erhaltet ihr ein schriftliches Angebot. Mit einer
+          Anzahlung von 30 % ist euer Datum reserviert. Der Restbetrag wird 4 Wochen
+          vor der Hochzeit fällig. Ich akzeptiere Banküberweisung und PayPal.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div id="kontakt">
+    <div class="contact-inner">
+      <p class="section-label">Anfrage stellen</p>
+      <h2>Kontakt</h2>
+      <div class="divider"></div>
+
+      <div class="success-msg" id="successMsg">
+        Deine Nachricht wurde gesendet! Ich melde mich innerhalb von 48 Stunden.
+      </div>
+
+      <form id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" placeholder="Max Mustermann" required />
+          </div>
+          <div class="field">
+            <label for="email">E-Mail *</label>
+            <input type="email" id="email" name="email" placeholder="max@beispiel.de" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="event">Event-Art</label>
+            <select id="event" name="event">
+              <option value="">– bitte wählen –</option>
+              <option>Club / Party</option>
+              <option>Festival</option>
+              <option>Hochzeit</option>
+              <option>Firmenevent</option>
+              <option>Private Feier</option>
+              <option>Sonstiges</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="datum">Wunschdatum</label>
+            <input type="date" id="datum" name="datum" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="nachricht">Nachricht *</label>
+          <textarea
+            id="nachricht"
+            name="nachricht"
+            placeholder="Erzähl mir von deinem Event: Location, Gästeanzahl, gewünschter Musikstil …"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-submit">
+          <button type="submit" class="btn">Anfrage senden</button>
+          <span class="form-note">* Pflichtfelder &mdash; Antwort innerhalb von 48 h</span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 <strong>DJ Philmusic</strong> &mdash; Alle Rechte vorbehalten.
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const htmlEl = document.documentElement;
+    const toggleBtn = document.getElementById('themeToggle');
+    if (localStorage.getItem('theme') === 'light') htmlEl.classList.add('light');
+    toggleBtn.addEventListener('click', () => {
+      htmlEl.classList.toggle('light');
+      localStorage.setItem('theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
+    });
+
+    // Lightbox
+    const lightbox    = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    document.querySelectorAll('.gallery-item img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('open');
+      });
+    });
+    document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.querySelector('.faq-question').addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // Fix missing faq-icon on third item
+    document.querySelectorAll('.faq-question').forEach(q => {
+      if (!q.querySelector('.faq-icon')) {
+        const icon = document.createElement('span');
+        icon.className = 'faq-icon';
+        icon.textContent = '+';
+        q.appendChild(icon);
+      }
+    });
+
+    // Contact form – simple client-side demo
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name    = document.getElementById('name').value.trim();
+      const email   = document.getElementById('email').value.trim();
+      const msg     = document.getElementById('nachricht').value.trim();
+
+      if (!name || !email || !msg) {
+        alert('Bitte alle Pflichtfelder ausfüllen.');
+        return;
+      }
+
+      this.style.opacity = '0.5';
+      this.style.pointerEvents = 'none';
+
+      setTimeout(() => {
+        this.reset();
+        this.style.opacity = '';
+        this.style.pointerEvents = '';
+        const success = document.getElementById('successMsg');
+        success.style.display = 'block';
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 800);
+    });
+  </script>
+</body>
+</html>
