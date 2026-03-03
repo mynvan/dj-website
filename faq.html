@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ – Häufige Fragen | DJ Philmusic</title>
+  <meta name="description" content="Häufige Fragen an DJ Philmusic: Preise, Musikwünsche, Technik, Eröffnungstanz und mehr. Alles Wichtige rund um eure Hochzeit mit DJ in Augsburg." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f; --surface: #12121a; --card: #1a1a26; --border: #2a2a40;
+      --accent: #7c3aed; --accent2: #a855f7; --glow: rgba(124,58,237,0.35);
+      --text: #e2e2f0; --muted: #7a7a9a; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 0.15em; color: var(--white); text-decoration: none; }
+    .logo span { color: var(--accent2); }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    nav a:hover, nav a.active { color: var(--accent2); }
+    .theme-toggle { display: flex; align-items: center; gap: 0.45rem; background: none; border: none; cursor: pointer; padding: 0; }
+    .toggle-icon { font-size: 0.9rem; }
+    .toggle-track { width: 42px; height: 23px; background: var(--border); border-radius: 999px; position: relative; transition: background 0.3s; flex-shrink: 0; }
+    .toggle-thumb { position: absolute; top: 3px; left: 3px; width: 17px; height: 17px; background: #fff; border-radius: 50%; transition: transform 0.3s cubic-bezier(.4,0,.2,1); box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+    html.light .toggle-track { background: var(--accent); }
+    html.light .toggle-thumb { transform: translateX(19px); }
+    html.light { --bg: #f0f0f8; --surface: #e4e4f0; --card: #ffffff; --border: #c4c4dc; --glow: rgba(124,58,237,0.12); --text: #1a1a2e; --muted: #5a5a80; }
+    html.light nav { background: rgba(240,240,248,0.9); }
+    html.light h1, html.light h2, html.light h3 { color: var(--text); }
+    html.light .logo { color: var(--text); }
+
+    /* ── PAGE LAYOUT ── */
+    .page-wrap { max-width: 820px; margin: 0 auto; padding: 8rem 2rem 5rem; }
+
+    .breadcrumb { font-size: 0.8rem; color: var(--muted); margin-bottom: 2rem; }
+    .breadcrumb a { color: var(--accent2); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; color: var(--white); margin-bottom: 0.5rem; }
+    .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; margin-bottom: 2rem; }
+
+    /* ── INTRO ── */
+    .faq-intro {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem 2.25rem;
+      margin-bottom: 3rem;
+    }
+
+    .faq-intro p {
+      color: var(--muted);
+      font-size: 0.97rem;
+      line-height: 1.8;
+      margin-bottom: 0.9rem;
+    }
+
+    .faq-intro p:last-child { margin-bottom: 0; }
+
+    .faq-intro strong { color: var(--text); }
+
+    .faq-intro .cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+      color: var(--accent2);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: gap 0.2s;
+    }
+
+    .faq-intro .cta-link:hover { gap: 0.7rem; }
+
+    /* ── FAQ ── */
+    .faq-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .faq-item:hover { border-color: var(--accent); }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text);
+      gap: 1rem;
+      user-select: none;
+    }
+
+    .faq-icon {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent2);
+      font-size: 1rem;
+      transition: transform 0.3s, background 0.2s;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      background: var(--accent);
+      color: var(--white);
+      border-color: var(--accent);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.2s;
+      color: var(--muted);
+      padding: 0 1.5rem;
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      padding: 0 1.5rem 1.25rem;
+    }
+
+    /* ── FOOTER ── */
+    footer { text-align: center; padding: 2.5rem 1rem; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); }
+    footer strong { color: var(--accent2); }
+    .footer-links { margin-top: 0.6rem; display: flex; justify-content: center; gap: 1.5rem; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent2); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">DJ<span>PHILMUSIC</span></a>
+    <div class="nav-right">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="ueber-mich.html">Über mich</a></li>
+        <li><a href="galerie.html">Galerie</a></li>
+        <li><a href="index.html#bewertungen">Bewertungen</a></li>
+        <li><a href="faq.html" class="active">FAQ</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Theme wechseln">
+        <span class="toggle-icon">🌙</span>
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-icon">☀️</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+    <div class="breadcrumb"><a href="index.html">Start</a> &rsaquo; FAQ</div>
+
+    <h1>Häufige Fragen</h1>
+    <div class="divider"></div>
+
+    <div class="faq-intro">
+      <p>
+        Ihr plant eure Hochzeit und habt noch offene Fragen rund um den DJ? Kein Problem –
+        hier findet ihr Antworten auf die Dinge, die mich am häufigsten gefragt werden.
+        Von der <strong>Preisgestaltung</strong> über <strong>Musikwünsche</strong> bis hin
+        zu Technik und Ablauf: Ich versuche so transparent wie möglich zu sein, damit ihr
+        genau wisst, was euch erwartet.
+      </p>
+      <p>
+        Wenn eure Frage hier nicht dabei ist oder ihr einfach lieber direkt sprechen möchtet –
+        meldet euch jederzeit. Ein kurzes Gespräch sagt oft mehr als zehn FAQs.
+      </p>
+      <a href="index.html#kontakt" class="cta-link">Direkt Kontakt aufnehmen →</a>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Wie setzt sich der Preis für einen Hochzeits-DJ zusammen?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Der Preis hängt von der Dauer des Auftritts, dem Umfang der Technik und
+          eventuellen Anfahrtskosten ab. Da jede Hochzeit einzigartig ist, erstelle
+          ich euch gerne ein individuelles Angebot – einfach über das Kontaktformular
+          anfragen.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Kann ich eine eigene Musikwunschliste einreichen?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Ja, und ich freue mich sogar darüber! Vor der Hochzeit stimmen wir gemeinsam
+          ab, welche Songs auf jeden Fall gespielt werden sollen und welche lieber nicht.
+          So wird die Playlist wirklich eurer.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Können wir uns vor der Hochzeit persönlich kennenlernen?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Auf jeden Fall. Ein persönliches Vorgespräch ist mir sogar wichtig – ob vor
+          Ort, per Videocall oder beim Kaffee. So lerne ich euch kennen, verstehe eure
+          Vorstellungen und ihr wisst, wer am Tag eurer Hochzeit hinter den Decks steht.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Wie ist der DJ gekleidet?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Ich kleide mich professionell und dem Anlass entsprechend – in der Regel
+          Hemd oder Anzug. Wenn ihr einen bestimmten Dresscode wünscht (z. B.
+          Schwarze Krawatte, Themenabend), teilt mir das einfach im Voraus mit.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Spielst du auch Musik für die Trauung und den Sektempfang?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Ja, ich begleite euch gerne durch den gesamten Abend – von der Zeremonie
+          über den Sektempfang bis zur Abschlussrunde. Bitte gebt beim Buchen an,
+          für welche Programmpunkte ihr Musikbegleitung wünscht.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Bringst du auch Licht- und Tontechnik mit?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Ja, professionelle PA-Anlage und Lichteffekte können dazu gebucht werden.
+          Ob eine Grundausstattung reicht oder ihr mehr Bühnenfeeling wollt – wir
+          finden gemeinsam die passende Lösung für eure Location.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Spielst du auch Musik auf Deutsch oder in anderen Sprachen?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Selbstverständlich. Ob Schlager, Deutsch-Pop, internationale Hits oder
+          Musik in eurer Muttersprache – ich passe die Auswahl an eure Gäste und
+          euren Geschmack an. Mehrsprachige Hochzeiten sind kein Problem.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Können Gäste Musikwünsche stellen?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Ja, Gästewünsche nehme ich gerne entgegen und spiele sie, wenn sie zum
+          Abend passen. Das sorgt oft für besondere Momente auf der Tanzfläche.
+          Wir besprechen vorher, wie offen ihr für spontane Anfragen eurer Gäste sein möchtet.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Übernimmst du auch die Musik für den Eröffnungstanz?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Ja – den Eröffnungstanz plane ich besonders sorgfältig mit euch. Ich
+          kümmere mich um die perfekte Einspielung, die Ankündigung und sorge dafür,
+          dass dieser Moment so unvergesslich wird, wie er sein soll.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Gibt es Hintergrundmusik während des Essens?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Ja, auch für das Dinner sorge ich für die passende Atmosphäre – dezente
+          Hintergrundmusik, die Gespräche nicht übertönt, aber dennoch Stimmung
+          schafft. Welchen Stil ihr bevorzugt, besprechen wir im Vorgespräch.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 <strong>DJ Philmusic</strong> &mdash; Alle Rechte vorbehalten.
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+    </div>
+  </footer>
+
+  <script>
+    const htmlEl = document.documentElement;
+    const toggleBtn = document.getElementById('themeToggle');
+    if (localStorage.getItem('theme') === 'light') htmlEl.classList.add('light');
+    toggleBtn.addEventListener('click', () => {
+      htmlEl.classList.toggle('light');
+      localStorage.setItem('theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
+    });
+
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.querySelector('.faq-question').addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>
