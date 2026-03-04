@@ -846,6 +846,7 @@
     nav.open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     nav.open .nav-toggle span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     nav.open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-theme-item { display: none; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
@@ -880,6 +881,11 @@
       html.light nav ul li a { color: rgba(226,226,240,0.9); border-bottom-color: rgba(255,255,255,0.12); }
       html.light .nav-toggle span { background: rgba(226,226,240,0.9); }
       html.light .logo { color: #e2e2f0; }
+      /* Mobile: theme toggle moves into dropdown */
+      .theme-toggle { display: none; }
+      .nav-theme-item { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 0.25rem; }
+      .nav-theme-item > span { color: rgba(226,226,240,0.9); font-size: 1rem; }
+      .theme-toggle-mobile { display: flex; align-items: center; gap: 0.45rem; background: none; border: none; cursor: pointer; padding: 0; }
     }
     @media (max-width: 600px) {
       .form-row { grid-template-columns: 1fr; }
@@ -900,6 +906,14 @@
         <li><a href="#bewertungen">Bewertungen</a></li>
         <li><a href="faq.html">FAQ</a></li>
         <li><a href="#kontakt">Kontakt</a></li>
+        <li class="nav-theme-item">
+          <span>Erscheinungsbild</span>
+          <button class="theme-toggle-mobile" aria-label="Theme wechseln">
+            <span class="toggle-icon">🌙</span>
+            <div class="toggle-track"><div class="toggle-thumb"></div></div>
+            <span class="toggle-icon">☀️</span>
+          </button>
+        </li>
       </ul>
       <button class="theme-toggle" id="themeToggle" aria-label="Theme wechseln">
         <span class="toggle-icon">🌙</span>
@@ -1267,6 +1281,8 @@
     const navEl = document.querySelector('nav');
     navToggle.addEventListener('click', () => navEl.classList.toggle('open'));
     document.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => navEl.classList.remove('open')));
+    const themeToggleMobile = document.querySelector('.theme-toggle-mobile');
+    if (themeToggleMobile) themeToggleMobile.addEventListener('click', () => toggleBtn.click());
 
     // FAQ accordion
     document.querySelectorAll('.faq-item').forEach(item => {
